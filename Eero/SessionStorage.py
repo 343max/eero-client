@@ -1,6 +1,6 @@
 from abc import abstractproperty
 
-class EeroSession(object):
+class SessionStorage(object):
     @abstractproperty
     def cookie(self):
         pass

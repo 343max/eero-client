@@ -4,7 +4,7 @@ from .ClientException import ClientException
 class Eero(object):
 
     def __init__(self, session):
-        # type(EeroSession) -> ()
+        # type(SessionStorage) -> ()
         self.session = session
         self.client = Client()
 

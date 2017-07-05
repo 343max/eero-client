@@ -1,2 +1,3 @@
 from .Eero import Eero
-from .EeroSession import EeroSession
+from .SessionStorage import SessionStorage
+from .ClientException import ClientException

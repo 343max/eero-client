@@ -1,4 +1,4 @@
-# bare bones client lib for [eero](https://eero.com)
+# barebone client lib for [eero](https://eero.com)
 
 This is a very simple client lib to access information about your eero home network. I got this API by intercepting the traffic of the eero app.
 

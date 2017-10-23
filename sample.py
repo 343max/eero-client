@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/env python
 from argparse import ArgumentParser
 import json
 import Eero
@@ -42,7 +42,24 @@ if __name__ == '__main__':
         print('Login successfull. Rerun this command to get some output')
     else:
         account = eero.account()
+
+        parser = ArgumentParser()
+        parser.add_argument("command", choices=['devices', 'details', 'info', 'eeros', 'reboot'], help="info to print")
+        parser.add_argument("--eero", type=int, help="eero to reboot")
+        args = parser.parse_args()
+
         for network in account['networks']['data']:
-            print_json(network)
-            network_details = eero.networks(network['url'])
-            print_json(network_details)
+            if args.command == 'info':
+                print_json(network)
+            if args.command == 'details':
+                network_details = eero.networks(network['url'])
+                print_json(network_details)
+            if args.command == 'devices':
+                devices = eero.devices(network['url'])
+                print_json(devices)
+            if args.command == 'eeros':
+                eeros = eero.eeros(network['url'])
+                print_json(eeros)
+            if args.command == 'reboot':
+                reboot = eero.reboot(args.eero)
+                print_json(reboot)

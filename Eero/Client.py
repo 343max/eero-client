@@ -7,9 +7,9 @@ class Client(object):
 
     def _parse_response(self, response):
         data = json.loads(response.text)
-        if data['meta']['code'] is not 200:
-            raise ClientException(data['meta']['code'], data['meta']['error'])
-        return data['data']
+        if data['meta']['code'] is not 200 and data['meta']['code'] is not 201:
+            raise ClientException(data['meta']['code'], data['meta'].get('error', ""))
+        return data.get('data', "")
 
     def post(self, action, **kwargs):
         response = requests.post(self.API_ENDPOINT.format(action), **kwargs)

@@ -1,2 +1,3 @@
 *.pyc
 session.cookie
+.venv

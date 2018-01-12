@@ -1,9 +1,10 @@
 #!/usr/bin/env python
 from argparse import ArgumentParser
 import json
-import Eero
+import eero
 
-class CookieStore(Eero.SessionStorage):
+
+class CookieStore(eero.SessionStorage):
     def __init__(self, cookie_file):
         from os import path
         self.cookie_file = path.abspath(cookie_file)
@@ -24,18 +25,24 @@ class CookieStore(Eero.SessionStorage):
         with open(self.cookie_file, 'w+') as f:
             f.write(self.__cookie)
 
+
 session = CookieStore('session.cookie')
-eero = Eero.Eero(session)
+eero = eero.Eero(session)
+
 
 def print_json(data):
     print(json.dumps(data, indent=4))
+
 
 if __name__ == '__main__':
     if eero.needs_login():
         parser = ArgumentParser()
         parser.add_argument("-l", help="your eero login (phone number)")
         args = parser.parse_args()
-        phone_number = args.l if args.l else raw_input('your eero login (phone number): ')
+        if args.l:
+            phone_number = args.l
+        else:
+            phone_number = raw_input('your eero login (phone number): ')
         user_token = eero.login(phone_number)
         verification_code = raw_input('verification key from SMS: ')
         eero.login_verify(verification_code, user_token)
@@ -44,7 +51,10 @@ if __name__ == '__main__':
         account = eero.account()
 
         parser = ArgumentParser()
-        parser.add_argument("command", choices=['devices', 'details', 'info', 'eeros', 'reboot'], help="info to print")
+        parser.add_argument("command",
+                            choices=['devices', 'details', 'info', 'eeros',
+                                     'reboot'],
+                            help="info to print")
         parser.add_argument("--eero", type=int, help="eero to reboot")
         args = parser.parse_args()
 

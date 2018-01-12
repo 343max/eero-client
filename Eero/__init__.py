@@ -1,3 +1,5 @@
-from .Eero import Eero
-from .SessionStorage import SessionStorage
-from .ClientException import ClientException
+from .eero import Eero
+from .session import SessionStorage
+from .exception import ClientException
+
+__all__ = ['ClientException', 'Eero', 'SessionStorage']

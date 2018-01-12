@@ -1,3 +1,4 @@
 *.pyc
+*.egg-info
 session.cookie
 .venv

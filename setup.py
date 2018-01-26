@@ -22,9 +22,7 @@ setup(name='eero',
           "Programming Language :: Python",
           "Topic :: Software Development :: Libraries :: Python Modules",
           "Topic :: Utilities",
-          # TODO: pick a license
-          # https://pypi.python.org/pypi?%3Aaction=list_classifiers
-          # TODO: pick one  "License :: OSI Approved :: MIT License",
+          "License :: OSI Approved :: MIT License",
       ],
       keywords='eero',
       author='Max von Webel',

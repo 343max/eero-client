@@ -1,6 +1,7 @@
-from .Client import Client
-from .ClientException import ClientException
+from .client import Client
+from .exception import ClientException
 import re
+
 
 class Eero(object):
 
@@ -27,7 +28,8 @@ class Eero(object):
 
     def login_verify(self, verification_code, user_token):
         params = dict(code=verification_code)
-        response = self.client.post('login/verify', params=params, cookies=dict(s=user_token))
+        response = self.client.post('login/verify', params=params,
+                                    cookies=dict(s=user_token))
         self.session.cookie = user_token
         return response
 
@@ -35,7 +37,8 @@ class Eero(object):
         try:
             return func()
         except ClientException as exception:
-            if exception.status == 401 and exception.error_message == 'error.session.refresh':
+            if (exception.status == 401
+                    and exception.error_message == 'error.session.refresh'):
                 self.login_refresh()
                 return func()
             else:
@@ -46,7 +49,9 @@ class Eero(object):
         self.session.cookie = response['user_token']
 
     def account(self):
-        return self.refreshed(lambda: self.client.get('account', cookies=self._cookie_dict))
+        return self.refreshed(lambda: self.client.get(
+                                          'account',
+                                          cookies=self._cookie_dict))
 
     def id_from_url(self, id_or_url):
         match = re.search('^[0-9]+$', id_or_url)
@@ -57,13 +62,24 @@ class Eero(object):
             return match.group(1)
 
     def networks(self, network_id):
-        return self.refreshed(lambda: self.client.get('networks/{}'.format(self.id_from_url(network_id)), cookies=self._cookie_dict))
+        return self.refreshed(lambda: self.client.get(
+                                        'networks/{}'.format(
+                                            self.id_from_url(network_id)),
+                                        cookies=self._cookie_dict))
 
     def devices(self, network_id):
-        return self.refreshed(lambda: self.client.get('networks/{}/devices'.format(self.id_from_url(network_id)), cookies=self._cookie_dict))
+        return self.refreshed(lambda: self.client.get(
+                                        'networks/{}/devices'.format(
+                                            self.id_from_url(network_id)),
+                                        cookies=self._cookie_dict))
 
     def eeros(self, network_id):
-        return self.refreshed(lambda: self.client.get('networks/{}/eeros'.format(self.id_from_url(network_id)), cookies=self._cookie_dict))
+        return self.refreshed(lambda: self.client.get(
+                                        'networks/{}/eeros'.format(
+                                            self.id_from_url(network_id)),
+                                        cookies=self._cookie_dict))
 
     def reboot(self, device_id):
-        return self.refreshed(lambda: self.client.post('eeros/{}/reboot'.format(device_id), cookies=self._cookie_dict))
+        return self.refreshed(lambda: self.client.post(
+                                        'eeros/{}/reboot'.format(device_id),
+                                        cookies=self._cookie_dict))

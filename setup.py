@@ -1,4 +1,5 @@
 from setuptools import setup, find_packages
+import os.path
 import re
 
 VERSIONFILE = "eero/version.py"
@@ -10,10 +11,16 @@ if mo:
 else:
     raise RuntimeError("Unable to find version string in %s." % (VERSIONFILE,))
 
+README_FILE = next(
+    r
+    for r in ['./README.md', './README.txt', './README']
+    if os.path.isfile(r)
+)
+
 setup(name='eero',
       version=verstr,
       description="Manage eero network devices",
-      long_description=open("./README.md", "r").read(),
+      long_description=open(README_FILE, "r").read(),
       classifiers=[
           "Development Status :: 4 - Beta",
           "Intended Audience :: Developers",

@@ -46,7 +46,7 @@ if __name__ == '__main__':
         user_token = eero.login(phone_number)
         verification_code = raw_input('verification key from SMS: ')
         eero.login_verify(verification_code, user_token)
-        print('Login successfull. Rerun this command to get some output')
+        print('Login successful. Rerun this command to get some output')
     else:
         account = eero.account()
 

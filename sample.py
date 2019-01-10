@@ -2,6 +2,7 @@
 from argparse import ArgumentParser
 import json
 import eero
+import six
 
 
 class CookieStore(eero.SessionStorage):
@@ -42,9 +43,9 @@ if __name__ == '__main__':
         if args.l:
             phone_number = args.l
         else:
-            phone_number = raw_input('your eero login (phone number): ')
+            phone_number = six.moves.input('your eero login (phone number): ')
         user_token = eero.login(phone_number)
-        verification_code = raw_input('verification key from SMS: ')
+        verification_code = six.moves.input('verification key from SMS: ')
         eero.login_verify(verification_code, user_token)
         print('Login successfull. Rerun this command to get some output')
     else:

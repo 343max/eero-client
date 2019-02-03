@@ -38,14 +38,14 @@ def print_json(data):
 if __name__ == '__main__':
     if eero.needs_login():
         parser = ArgumentParser()
-        parser.add_argument("-l", help="your eero login (phone number)")
+        parser.add_argument("-l", help="your eero login (email address or phone number)")
         args = parser.parse_args()
         if args.l:
             phone_number = args.l
         else:
-            phone_number = six.moves.input('your eero login (phone number): ')
+            phone_number = six.moves.input('your eero login (email address or phone number): ')
         user_token = eero.login(phone_number)
-        verification_code = six.moves.input('verification key from SMS: ')
+        verification_code = six.moves.input('verification key from email or SMS: ')
         eero.login_verify(verification_code, user_token)
         print('Login successful. Rerun this command to get some output')
     else:

@@ -22,13 +22,13 @@ class Eero(object):
 
     def login(self, identifier):
         # type(string) -> string
-        params = dict(login=identifier)
-        data = self.client.post('login', params=params)
+        json = dict(login=identifier)
+        data = self.client.post('login', json=json)
         return data['user_token']
 
     def login_verify(self, verification_code, user_token):
-        params = dict(code=verification_code)
-        response = self.client.post('login/verify', params=params,
+        json = dict(code=verification_code)
+        response = self.client.post('login/verify', json=json,
                                     cookies=dict(s=user_token))
         self.session.cookie = user_token
         return response

@@ -34,7 +34,7 @@ setup(name='eero',
       keywords='eero',
       author='Max von Webel',
       author_email='max@343max.de',
-      url='https://github.com/dev-segal/eero-client',
+      url='https://github.com/343max/eero-client',
       license='MIT License',
       packages=find_packages(exclude=[
           'ez_setup', 'example', 'tests', 'external']),

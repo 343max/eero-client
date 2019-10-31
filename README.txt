@@ -1,4 +1,4 @@
-# barebone client lib for eero router (https://eero.com)
+# unofficial barebone client lib for eero router (https://eero.com)
 
 This is a very simple client lib to access information about your eero home network. I got this API by intercepting the traffic of the eero app.
 

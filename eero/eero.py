@@ -84,3 +84,9 @@ class Eero(object):
                                         'eeros/{}/reboot'.format(
                                             self.id_from_url(device_id)),
                                         cookies=self._cookie_dict))
+
+    def speedtest(self, network_id):
+        return self.refreshed(lambda: self.client.get(
+                                        'networks/{}/speedtest'.format(
+                                            self.id_from_url(network_id)),
+                                        cookies=self._cookie_dict))

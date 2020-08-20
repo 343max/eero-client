@@ -54,7 +54,7 @@ if __name__ == '__main__':
         parser = ArgumentParser()
         parser.add_argument("command",
                             choices=['devices', 'details', 'info', 'eeros',
-                                     'reboot'],
+                                     'reboot', 'speedtest'],
                             help="info to print")
         parser.add_argument("--eero", type=int, help="eero to reboot")
         args = parser.parse_args()
@@ -74,3 +74,6 @@ if __name__ == '__main__':
             if args.command == 'reboot':
                 reboot = eero.reboot(args.eero)
                 print_json(reboot)
+            if args.command == 'speedtest':
+                speedtest = eero.speedtest(network['url'])
+                print_json(speedtest)

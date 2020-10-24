@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-from argparse import ArgumentParser
-import json
-import eero
 import click
+import dateutil.parser
+import eero
+import json
 import pandas as pd
+
 
 class CookieStore(eero.SessionStorage):
     def __init__(self, cookie_file):
@@ -30,10 +31,12 @@ class CookieStore(eero.SessionStorage):
 session = CookieStore('session.cookie')
 eero = eero.Eero(session)
 
+
 def print_json(data):
     print(json.dumps(data, indent=4, sort_keys=True))
 
-@click.group()    
+
+@click.group()
 def cli():
     pass
 
@@ -53,14 +56,17 @@ def login():
     #     print('Login successful. Rerun this command to get some output')
     pass
 
+
 def account():
     return eero.account()
+
 
 @cli.command()
 def devices():
     for network in account()['networks']['data']:
         devices = eero.devices(network['url'])
-        print_json(devices)     
+        print_json(devices)
+
 
 @cli.command()
 @click.option('--verbose', is_flag=True, default=False)
@@ -87,17 +93,20 @@ def eeros(verbose):
             summary_erros.append(ds)
     df = pd.DataFrame.from_dict(summary_erros, orient='columns')
     print(df)
-        
+
+
 @cli.command()
 @click.argument('network_id')
 @click.argument('device_id')
 def device(network_id, device_id):
     print_json(eero.device(network_id, device_id))
 
+
 def get_bitrate(bitrate):
     if (bitrate is None):
         return 0
     return bitrate.split(' ')[0]
+
 
 @cli.command()
 @click.option('--recent', is_flag=True, default=True)
@@ -115,30 +124,32 @@ def summary(recent):
             ds['con_score_bar'] = device['connectivity']['score_bars']
             ds['usage'] = device['usage']
             ds['location'] = device['source']['location']
-            ds['last_active'] = device['last_active']
+            ds['last_active'] = dateutil.parser.isoparse(device['last_active']).strftime("%Y-%m-%d %H:%M:%S")
             ds['id'] = device['url'].split('/')[-1]
-            
+
             summary_score.append(ds)
     df = pd.DataFrame.from_dict(summary_score, orient='columns')
     print(df)
-    
+
+
 @cli.command()
 def log():
-        # TODO: FIGURE THIS OUT!
-        print(eero.logs())
-        
+    # TODO: FIGURE THIS OUT!
+    print(eero.logs())
+
+
 @cli.command()
 def networks():
     for network in account()['networks']['data']:
         print(network['url'])
-        
+
+
 @cli.command()
 @click.argument("--device")
 def reboot(device):
     print(f"Rebooting device: {device}...")
     eero.reboot(device)
-    
+
 
 if __name__ == '__main__':
     cli()
-    

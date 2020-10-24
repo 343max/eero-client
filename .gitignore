@@ -4,3 +4,4 @@ session.cookie
 .mypy_cache
 .venv
 .vscode
+.tox

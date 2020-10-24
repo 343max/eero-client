@@ -8,7 +8,7 @@ class Client(object):
     API_ENDPOINT = 'https://api-user.e2ro.com/2.2/{}'
 
     def _parse_response(self, response):
-        data = json.loads(response.text)
+        data = response.json()
         if data['meta']['code'] is not 200 and data['meta']['code'] is not 201:
             raise ClientException(data['meta']['code'],
                                   data['meta'].get('error', ""))

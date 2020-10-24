@@ -1,7 +1,8 @@
-*.pyc
 *.egg-info
-session.cookie
+*.pyc
 .mypy_cache
+.tox
 .venv
 .vscode
-.tox
+build/
+session.cookie

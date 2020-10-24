@@ -5,4 +5,5 @@
 .venv
 .vscode
 build/
+dist/
 session.cookie

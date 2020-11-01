@@ -1,6 +1,5 @@
-import pytest
 import eero.session
 
-def test_Eero():
+def test_eero():
     session = eero.Eero(None)
     assert session is not None

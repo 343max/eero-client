@@ -1,3 +1,4 @@
 click
 pandas
-requestsPyYAML==5.3.1
+requests
+PyYAML==5.3.1

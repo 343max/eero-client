@@ -2,8 +2,10 @@
 omit = 
 	.tox/*
 	ve/*
+	virtualenv/*
 
 [report]
 omit = 
 	ve/*
+	virtualenv/*
 	.tox/*

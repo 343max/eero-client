@@ -1,0 +1,9 @@
+[run]
+omit = 
+	.tox/*
+	ve/*
+
+[report]
+omit = 
+	ve/*
+	.tox/*

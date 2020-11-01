@@ -7,3 +7,5 @@
 build/
 dist/
 session.cookie
+cover/
+.coverage

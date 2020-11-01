@@ -8,5 +8,5 @@ install:
   - pip install nose coveralls responses coveralls
 # command to run tests
 script:
-  - nosetests eero/tests/*
+  - nosetests eero/tests/* --with-coverage
   - coveralls

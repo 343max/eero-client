@@ -1,6 +1,6 @@
 from eero.client import Client
 from eero.exception import ClientException
-from nose.tools import raises
+import pytest
 import responses
 import json
 
@@ -18,7 +18,6 @@ def test_client():
     assert "some data" == c.post('helloworld')    
 
 @responses.activate
-@raises(ClientException)
 def test_client_error():
     c = Client()
     r = {
@@ -27,4 +26,5 @@ def test_client_error():
             {'code': 403}
     }
     responses.add(responses.GET, 'https://api-user.e2ro.com/2.2/helloworld', json=r)
-    c.get('helloworld')
+    with pytest.raises(ClientException):
+        c.get('helloworld')

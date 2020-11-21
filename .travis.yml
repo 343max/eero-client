@@ -5,8 +5,8 @@ python:
 # command to install dependencies
 install:
   - pip install -r requirements.txt
-  - pip install nose coveralls responses coveralls
+  - pip install pytest pytest-cov coveralls responses coveralls
 # command to run tests
 script:
-  - nosetests eero/tests/* --with-coverage
+  - pytest --cov=eero eero/tests/*
   - coveralls

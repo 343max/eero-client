@@ -8,4 +8,5 @@ build/
 dist/
 session.cookie
 cover/
+htmlcov/
 .coverage

@@ -9,7 +9,7 @@ class Client(object):
 
     def _parse_response(self, response):
         data = json.loads(response.text)
-        if data['meta']['code'] is not 200 and data['meta']['code'] is not 201:
+        if data['meta']['code'] != 200 and data['meta']['code'] != 201:
             raise ClientException(data['meta']['code'],
                                   data['meta'].get('error', ""))
         return data.get('data', "")
